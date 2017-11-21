@@ -16,12 +16,12 @@ img_file = "ch11/cave.jpg"
 # This request was it kept throwing 401's and I noticed the response header was:
 # 'WWW-Authenticate': 'Basic realm="inflate"'
 # I passed in the creds from the previous inflate challenge and boom, it worked
-# r = requests.get(img_url, auth=("huge", "file"))
-# if r.status_code == 200:
-#     with open(img_file, 'wb') as i:
-#         i.write(r.content)
-# else:
-#     print("Need some kind of auth and the response headers say WWW-Authenticate': 'Basic realm='inflate'")
+r = requests.get(img_url, auth=("huge", "file"))
+if r.status_code == 200:
+    with open(img_file, 'wb') as i:
+        i.write(r.content)
+else:
+    print("Need some kind of auth and the response headers say WWW-Authenticate': 'Basic realm='inflate'")
 
 img = Image.open(img_file)
 width = img.width
