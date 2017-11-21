@@ -1,5 +1,8 @@
-from solved import format_solution
+from shared import format_solution
 
+page_url = "http://www.pythonchallenge.com/pc/def/ocr.html"
+
+# This junk is buried in an html comment on the page
 random_junk = """
 %%$@_$^__#)^)&!_+]!*@&^}@[@%]()%+$&[(_@%+%$*^@$^!+]!&_#)_*}{}}!}_]$[%}@[{_@#_^{*
 @##&{#&{&)*%(]{{([*}@[@&]+!!*{)!}{%+{))])[!^})+)$]#{*+^((@^@}$[**$&^{$!@#$%)!@(&
@@ -1223,6 +1226,9 @@ $#_}*!(+([_&%{^&[([%]}*^{{([@+@]@*&@_!]_+([(#&!]]#$$#]@#{_]][_{@]{*))$({%}_![@$]
 #@}&$[[%]_&$+)$!%{(}$^$}*
 """
 
+# The hint above the comment says "find rare characters in the mess below" so lets get a count of the occurrence for
+# each character to determine which are rare using the character as a key and the value will be a count of how many
+# times we see it
 count_dict = {}
 for char in random_junk:
     if char in count_dict:
@@ -1230,9 +1236,12 @@ for char in random_junk:
     else:
         count_dict[char] = 1
 
+# Now lets iterate through the results and concatenate all of the items that appear less than 20 times
 solution = ""
 for k, v in count_dict.items():
     if v < 10:
         solution += k
+
+# Looks like the rare characters spell out "equality". Sweet!
 
 format_solution(solution)

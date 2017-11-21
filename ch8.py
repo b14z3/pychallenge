@@ -2,10 +2,13 @@ import re
 import requests
 from PIL import Image
 
-from solved import format_solution
+from shared import format_solution, mkdir
 
+mkdir("ch8")
 
-# get the file and save it locally
+page_url = "http://www.pythonchallenge.com/pc/def/oxygen.html"
+
+# This image had a bar of gray pixels which looks interesting. Get the file and save it locally for inspection
 img_url = "http://www.pythonchallenge.com/pc/def/oxygen.png"
 img_file = "ch8/oxygen.png"
 r = requests.get(img_url)

@@ -1,4 +1,8 @@
-from solved import format_solution
+import re
+
+from shared import format_solution
+
+page_url = "http://www.pythonchallenge.com/pc/def/equality.html"
 
 junk = """
 kAewtloYgcFQaJNhHVGxXDiQmzjfcpYbzxlWrVcqsmUbCunkfxZWDZjUZMiGqhRRiUvGmYmvnJIHEmbT
@@ -1256,30 +1260,10 @@ PBuijeoTSpsVLaOGuLVjMZXkBvVXwUuHfBihziiavGSYofPNeKsTXruMUumRRPQJzvSzJkKbtSipiqBd
 junk = junk.replace("\n", "")
 
 
-def has_bodyguards(text_list):
-    count = 0
-    solution = ""
-    text_len = len(text_list)
-    for letter in text_list:
-        if count <= 2 or count >= text_len - 3:
-            count += 1
-            continue
-        elif letter.islower():
-            left_bodyguards = text_list[count - 3:count]
-            right_bodyguards = text_list[count + 1:count + 4]
+# The directions were to find any letter that is surrounded by EXACTLY 3 uppercase characters. So, we build a regex to
+# look for [lower] [3 uppers] ([the lower letter we want so we use a capture group]) [3 uppers] [lower]
+expression = re.compile(r'[a-z][A-Z]{3}([a-z])[A-Z]{3}[a-z]')
+found = re.findall(expression, junk)
+result = "".join(found)
 
-            if left_bodyguards.isupper() and right_bodyguards.isupper():
-                if count >= 4 and count <= text_len - 4:
-                    left_outside = text_list[count - 4]
-                    right_outside = text_list[count + 4]
-                    if left_outside.islower() and right_outside.islower():
-                        solution += letter
-                else:
-                    solution += letter
-            count += 1
-        else:
-            count += 1
-    return solution
-
-
-format_solution(has_bodyguards(junk))
+format_solution(result)
